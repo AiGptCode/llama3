@@ -1,149 +1,237 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3wDpgfTgo4JhXQtgM" crossorigin="anonymous">
-    <title>DeepSeek AI Assistant</title>
-    <style>
-        body {
-            background-color: #222;
-            overflow-x: hidden !important;
-            color: white;
-        }
+	<title>Cat in a Box Game</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		/* Grid styling */
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(10, 1fr);
+			grid-template-rows: repeat(10, 1fr);
+			gap: 2px;
+			margin: 20px auto;
+			max-width: 500px;
+			height: 500px;
+			background-color: #ddd;
+			border: 2px solid #333;
+			padding: 10px;
+		}
 
-        h1 {
-            font-weight: bold;
-            color: red;
-            text-shadow: 2px 2px black;
-            letter-spacing: 1px;
-            margin-bottom: 3rem;
-        }
+		/* Box styling */
+		.box {
+			background-color: #ffcc66;
+			border-radius: 50%;
+			cursor: pointer;
+			transition: transform 0.2s ease-in-out;
+			box-shadow: 0 0 10px #333;
+		}
 
-        .bg-darkmode {
-            --bs-btn-bg: red;
-            --bs-btn-hover-bg: rgba(255, 0, 0, 0.7);
-            --bs-btn-active-bg: rgba(255, 0, 0, 0.9);
-            --bs-btn-border-color: transparent;
-            --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
-        }
+		/* Mouse styling */
+		.mouse {
+			background-color: #99ccff;
+			border-radius: 50%;
+			box-shadow: 0 0 10px #333;
+		}
 
-        @media screen and (max-width: 991px) {
-            h1 {
-                font-size: 2rem;
-            }
-        }
+		/* Special ability styling */
+		.ability {
+			background-color: #66ff66;
+			border-radius: 50%;
+			box-shadow: 0 0 10px #333;
+			opacity: 0.5;
+			pointer-events: none;
+		}
 
-        .chat-output {
-            max-height: calc(100vh - 220px);
-            overflow-y: auto;
-            border: solid 1px gray;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 2rem;
-            background-color: rgba(0, 0, 0, 0.3);
-        }
-
-        .chat-box {
-            border: solid 1px grey;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 1rem;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .rounded-pill::before {
-            border-radius: 50% !important;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		/* Text styling */
+		h1, p {
+			text-align: center;
+			font-family: Arial, sans-serif;
+			color: #333;
+		}
+	</style>
 </head>
-
 <body>
-    <div class="container mt-5 mb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8 col-lg-6 bg-darkmode p-4 rounded shadow">
-                <h1 class="mb-4">DeepSeek AI Assistant</h1>
-                <form id="chat-form">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="chat-output">
-                            <!-- Output messages will be rendered here -->
-                            <div class="alert alert-secondary mb-3" role="alert">
-                                Welcome to the DeepSeek AI Assistant! Type something in the input field below.
-                            </div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <textarea id="prompt" rows="1" class="form-control form-control-sm ps-3 py-1 rounded-pill border-0 bg-light" aria-label="Message" placeholder="Ask me anything..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary rounded-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#fff" width="1.5em" height="1.5em"><path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.164.852l-.5 2.815.5 2.815a.75.75 0 0 1 1.164.853l5.818-14.547a.5.5 0 0 1 .11-.54l.002-.001zM10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<h1>Cat in a Box Game</h1>
+	<div class="grid">
+		<!-- Grid cells -->
+		<div class="box" id="box"></div>
+		<div class="mouse" id="mouse"></div>
+		<!-- Special ability cells -->
+		<div class="ability" id="ability1"></div>
+		<div class="ability" id="ability2"></div>
+		<div class="ability" id="ability3"></div>
+		<div class="ability" id="ability4"></div>
+		<div class="ability" id="ability5"></div>
+		<div class="ability" id="ability6"></div>
+		<div class="ability" id="ability7"></div>
+		<div class="ability" id="ability8"></div>
+	</div>
+	<p>Use the arrow keys or swipe gestures to move the cat and catch the mouse. Collect special abilities to help you catch the mouse.</p>
+	<p id="score">Score: 0</p>
+	<script>
+		// Set up game variables
+		const box = document.getElementById('box');
+		const mouse = document.getElementById('mouse');
+		const abilities = document.querySelectorAll('.ability');
+		const GRID_SIZE = 10;
+		let boxPosition = getRandomPosition();
+		let mousePosition = getRandomPosition();
+		let score = 0;
+		let guessMode = true;
 
-    <script>
-        const apiKey = "sk-ecad9052a3da4e3b8aaa77e1cf9e84c3"; // Replace YOUR_API_KEY with your actual DeepSeek API Key
-        const messages = [];
+		// Set up keyboard controls
+		document.addEventListener('keydown', (event) => {
+			if (guessMode && event.key.startsWith('Arrow')) {
+				event.preventDefault();
+				const x = event.key === 'ArrowLeft' ? -1 : event.key === 'ArrowRight' ? 1 : 0;
+				const y = event.key === 'ArrowUp' ? -1 : event.key === 'ArrowDown' ? 1 : 0;
+				moveBox(x, y);
+			}
+		});
 
-        $(document).ready(function () {
-            $('#chat-form').on('submit', async e => {
-                e.preventDefault();
-                const query = $('#prompt').val();
-                addUserMessage(query);
-                await fetchAIResponse(query);
-            });
+		// Set up touch controls
+		let touchStartX = null;
+		let touchStartY = null;
 
-            function addUserMessage(msg) {
-                const template = '<div class="chat-box mb-2 ms-2"><span class="badge badge-success float-start me-2">You:</span><span class="fs-5">' + msg + '</span></div>';
-                $('.chat-output').append(template);
-                scrollToBottom();
-            }
+		document.addEventListener('touchstart', (event) => {
+			touchStartX = event.touches[0].clientX;
+			touchStartY = event.touches[0].clientY;
+		});
 
-            async function fetchAIResponse(query) {
-                try {
-                    const result = await $.ajax({
-                        url: `https://api.deepseek.com/v1/chat/completions`,
-                        method: "POST",
-                        beforeSend: xhr => {
-                            xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
-                            xhr.setRequestHeader('Content-Type', 'application/json');
-                        },
-                        data: JSON.stringify({ model: "deepseek-coder", messages: [...messages, { role: "user", content: query }] }),
-                    });
+		document.addEventListener('touchmove', (event) => {
+			if (guessMode) {
+				event.preventDefault();
+			}
 
-                    handleServerResponse(result);
-                } catch (err) {
-                    console.error(err);
-                }
-            }
+			if (touchStartX && touchStartY) {
+				const touchEndX = event.touches[0].clientX;
+				const touchEndY = event.touches[0].clientY;
 
-            function handleServerResponse(res) {
-                if ('choices' in res && Array.isArray(res.choices)) {
-                    const choice = res.choices[0];
-                    const aiMessage = choice.message;
-                    if (aiMessage) {
-                        const template = '<div class="chat-box mb-2 bg-light"><span class="badge badge-info float-start me-2">AI:</span><span class="fs-5">' + aiMessage.content + '</span></div>';
-                        $('.chat-output').append(template);
-                        scrollToBottom();
-                        messages.push(aiMessage);
+				const diffX = touchEndX - touchStartX;
+				const diffY = touchEndY - touchStartY;
 
-                        // Update System Prompt
-                        if (aiMessage.content.toLowerCase().includes("help with a code")) {
-                            messages[0].content = "You are a helpful assistant specializing in coding.";
-                        }
-                    }
-                } else {
-                    console.log("Invalid or no response received.", res);
-                }
-            }
+				if (Math.abs(diffX) > Math.abs(diffY)) {
+					if (diffX > 0) {
+						moveBox(1, 0);
+					} else {
+						moveBox(-1, 0);
+					}
+				} else {
+					if (diffY > 0) {
+						moveBox(0, 1);
+					} else {
+						moveBox(0, -1);
+					}
+				}
 
-            function scrollToBottom() {
-                $('.chat-output').animate({ scrollTop: $('.chat-output').prop("scrollHeight") }, 500);
-            }
-        });
-    </script>
+				touchStartX = null;
+				touchStartY = null;
+			}
+		});
+
+		// Move the cat and check for collisions
+		function moveBox(x, y) {
+			const newX = boxPosition.x + x;
+			const newY = boxPosition.y + y;
+
+			if (newX >= 0 && newX < GRID_SIZE && newY >= 0 && newY < GRID_SIZE) {
+				box.style.transform = `translate(${x * 50}px, ${y * 50}px)`;
+				boxPosition.x = newX;
+				boxPosition.y = newY;
+				checkCollisions();
+			}
+		}
+
+		// Check for collisions between the cat and the mouse, or the cat and a special ability
+		function checkCollisions() {
+			if (boxPosition.x === mousePosition.x && boxPosition.y === mousePosition.y) {
+				score++;
+				document.getElementById('score').innerText = `Score: ${score}`;
+				mousePosition = getRandomPosition();
+			}
+
+			abilities.forEach((ability) => {
+				if (boxPosition.x === parseInt(ability.style.gridColumnStart) - 1 && boxPosition.y === parseInt(ability.style.gridRowStart) - 1) {
+					ability.style.display = 'none';
+					giveAbility();
+				}
+			});
+		}
+
+		// Give the cat a random ability
+		function giveAbility() {
+			const abilityNumber = Math.floor(Math.random() * 8) + 1;
+
+			switch (abilityNumber) {
+				case 1:
+					box.style.backgroundColor = '#ff6666';
+					setTimeout(() => {
+						box.style.backgroundColor = '#ffcc66';
+					}, 5000);
+					break;
+				case 2:
+					box.style.boxShadow = '0 0 20px #333';
+					setTimeout(() => {
+						box.style.boxShadow = '0 0 10px #333';
+					}, 5000);
+					break;
+				case 3:
+					document.body.style.backgroundColor = '#66ccff';
+					setTimeout(() => {
+						document.body.style.backgroundColor = '';
+					}, 5000);
+					break;
+				case 4:
+					document.body.style.backgroundImage = 'url("https://www.w3schools.com/w3images/fjords.jpg")';
+					setTimeout(() => {
+						document.body.style.backgroundImage = '';
+					}, 5000);
+					break;
+				case 5:
+					document.body.style.backgroundImage = 'url("https://www.w3schools.com/w3images/mountains.jpg")';
+					setTimeout(() => {
+						document.body.style.backgroundImage = '';
+					}, 5000);
+					break;
+				case 6:
+					document.body.style.backgroundImage = 'url("https://www.w3schools.com/w3images/nature.jpg")';
+					setTimeout(() => {
+						document.body.style.backgroundImage = '';
+					}, 5000);
+					break;
+				case 7:
+					document.body.style.backgroundImage = 'url("https://www.w3schools.com/w3images/paris.jpg")';
+					setTimeout(() => {
+						document.body.style.backgroundImage = '';
+					}, 5000);
+					break;
+				case 8:
+					document.body.style.backgroundImage = 'url("https://www.w3schools.com/w3images/rocks.jpg")';
+					setTimeout(() => {
+						document.body.style.backgroundImage = '';
+					}, 5000);
+					break;
+			}
+		}
+
+		// Get a random position on the grid
+		function getRandomPosition() {
+			return {
+				x: Math.floor(Math.random() * GRID_SIZE),
+				y: Math.floor(Math.random() * GRID_SIZE)
+				};
+		}
+
+		// Set up guess mode toggle
+		document.addEventListener('click', () => {
+			if (guessMode) {
+				guessMode = false;
+			} else {
+				guessMode = true;
+			}
+		});
+	</script>
 </body>
-
 </html>
