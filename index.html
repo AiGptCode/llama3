@@ -1,306 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom NFT Collection</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3wDpgfTgo4JhXQtgM" crossorigin="anonymous">
+    <title>DeepSeek AI Assistant</title>
     <style>
-        /* Updated color scheme */
         body {
-            background-color: #111;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
+            background-color: #222;
+            overflow-x: hidden !important;
+            color: white;
         }
 
-        .logo {
-            width: 200px;
-            height: auto;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+        h1 {
+            font-weight: bold;
+            color: red;
+            text-shadow: 2px 2px black;
+            letter-spacing: 1px;
+            margin-bottom: 3rem;
         }
 
-        .title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            line-height: 1.1;
-            color: #ff4500; /* Orange */
+        .bg-darkmode {
+            --bs-btn-bg: red;
+            --bs-btn-hover-bg: rgba(255, 0, 0, 0.7);
+            --bs-btn-active-bg: rgba(255, 0, 0, 0.9);
+            --bs-btn-border-color: transparent;
+            --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.3;
-            color: #ffd700; /* Yellow */
-        }
-
-        input[type="text"] {
-            width: 300px;
-            height: 40px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            background-color: #ffd700; /* Yellow */
-            color: #111;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .animated-button {
-            width: 150px;
-            height: 50px;
-            background-color: #f00; /* Red */
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .animated-button:hover {
-            background-color: #ff4500; /* Orange */
-        }
-
-        .line {
-            width: 100%;
-            height: 1px;
-            background-color: #ff4500; /* Orange */
-            margin-bottom: 40px;
-            animation: moveLine 3s infinite linear;
-        }
-
-        @keyframes moveLine {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(100%);
-            }
-        }
-
-        .list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 50px;
-        }
-
-        .list-item {
-            margin: 10px;
-            text-align: center;
-        }
-
-        .photo {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .photo:hover {
-            transform: scale(1.05);
-        }
-
-        .photo-title {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: #ff4500; /* Orange */
-        }
-
-        .photo-description {
-            font-size: 0.9rem;
-            margin-top: 5px;
-            color: #ffd700; /* Yellow */
-        }
-
-        /* Updated layout and element spacing */
-        .container {
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
-
-        .logo {
-            margin-bottom: 40px;
-        }
-
-        .title {
-            margin-bottom: 20px;
-        }
-
-        .subtitle {
-            margin-bottom: 30px;
-        }
-
-        .line {
-            margin-bottom: 40px;
-        }
-
-        form {
-            margin-bottom: 50px;
-        }
-
-        input[type="text"] {
-            margin-bottom: 20px;
-        }
-
-        .list {
-            margin-bottom: 50px;
-        }
-
-        .list-item {
-            margin-bottom: 30px;
-        }
-
-        .story {
-            margin-bottom: 50px;
-        }
-
-        /* Updated animations and transitions */
-        .animated-button {
-            transition: background-color 0.3s ease;
-        }
-
-        .line {
-            animation: moveLine 3s infinite linear;
-        }
-
-        @keyframes moveLine {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(100%);
-            }
-        }
-
-        .photo {
-            transition: transform 0.3s ease;
-        }
-
-        .photo:hover {
-            transform: scale(1.05);
-        }
-
-        /* Updated media queries for responsive design */
-        @media (max-width: 768px) {
-            /* Adjust font sizes and margins for smaller screens */
-            .title {
+        @media screen and (max-width: 991px) {
+            h1 {
                 font-size: 2rem;
-                margin-bottom: 10px;
             }
+        }
 
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 20px;
-            }
+        .chat-output {
+            max-height: calc(100vh - 220px);
+            overflow-y: auto;
+            border: solid 1px gray;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 2rem;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
 
-            /* Adjust form and input elements for smaller screens */
-            form {
-                width: 100%;
-                padding: 0 20px;
-            }
+        .chat-box {
+            border: solid 1px grey;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-            input[type="text"] {
-                width: 100%;
-            }
-
-            /* Adjust list items and photos for smaller screens */
-            .list-item {
-                margin: 5px;
-                text-align: center;
-            }
-
-            .photo {
-                width: 100%;
-                height: auto;
-            }
-
-            /* Adjust story section for smaller screens */
-            .story {
-                margin-top: 30px;
-            }
+        .rounded-pill::before {
+            border-radius: 50% !important;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <body>
-
-<div class="container">
-    <img src="logo.png" alt="Venom NFT Collection" class="logo">
-    <h1 class="title">Welcome to the Venom NFT Collection</h1>
-    <h2 class="subtitle">Discover the Power of Venom NFTs</h2>
-    <div class="line"></div>
-    <form action="explore.html">
-        <input type="text" placeholder="Enter Wallet Address" id="wallet-address">
-        <button type="submit" class="animated-button" id="explore-btn">Explore Collection</button>
-    </form>
-    <div class="list">
-        <div class="list-item">
-            <img src="venom1.jpg" alt="Venom NFT 1" class="photo">
-            <h3 class="photo-title">Venom NFT 1</h3>
-            <p class="photo-description">Description for Venom NFT 1</p>
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8 col-lg-6 bg-darkmode p-4 rounded shadow">
+                <h1 class="mb-4">DeepSeek AI Assistant</h1>
+                <form id="chat-form">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="chat-output">
+                            <!-- Output messages will be rendered here -->
+                            <div class="alert alert-secondary mb-3" role="alert">
+                                Welcome to the DeepSeek AI Assistant! Type something in the input field below.
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <textarea id="prompt" rows="1" class="form-control form-control-sm ps-3 py-1 rounded-pill border-0 bg-light" aria-label="Message" placeholder="Ask me anything..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-circle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#fff" width="1.5em" height="1.5em"><path fill-rule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.164.852l-.5 2.815.5 2.815a.75.75 0 0 1 1.164.853l5.818-14.547a.5.5 0 0 1 .11-.54l.002-.001zM10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="list-item">
-            <img src="venom2.jpg" alt="Venom NFT 2" class="photo">
-            <h3 class="photo-title">Venom NFT 2</h3>
-            <p class="photo-description">Description for Venom NFT 2</p>
-        </div>
-        <div class="list-item">
-            <img src="venom3.jpg" alt="Venom NFT 3" class="photo">
-            <h3 class="photo-title">Venom NFT 3</h3>
-            <p class="photo-description">Description for Venom NFT 3</p>
-        </div>
-        <!-- Add more photos as needed -->
     </div>
-    <div class="story">
-        <h2>Fantasy Story: The Rise of Venom NFTs</h2>
-        <p>Deep in the heart of the digital realm, a new force emerges – Venom NFTs. Born from the shadows of the blockchain, these digital marvels possess untold power and rarity.</p>
-        <p>Each Venom NFT is a gateway to a world of unlimited possibilities. From rare collectibles to virtual experiences, the Venom NFT Collection promises adventure and excitement for all who dare to explore.</p>
-        <p>Join the ranks of digital pioneers and stake your claim in the ever-expanding universe of Venom NFTs. The journey awaits...</p>
-    </div>
-</div>
 
-<script>
-    // JavaScript code for handling button click event and other effects
-    document.getElementById('explore-btn').addEventListener('click', function() {
-        alert('Explore button clicked!'); // Example alert message
-    });
+    <script>
+        const apiKey = "sk-ecad9052a3da4e3b8aaa77e1cf9e84c3"; // Replace YOUR_API_KEY with your actual DeepSeek API Key
+        const messages = [];
 
-    // JavaScript code for animating the photos
-    const photos = document.querySelectorAll('.photo');
-    photos.forEach(photo => {
-        const randomX = Math.floor(Math.random() * 100) - 50; // Random X position
-        const randomY = Math.floor(Math.random() * 100) - 50; // Random Y position
-        photo.style.animation = `moveElement 2s linear infinite alternate, translate(${randomX}px, ${randomY}px)`; // Apply random movement
-    });
+        $(document).ready(function () {
+            $('#chat-form').on('submit', async e => {
+                e.preventDefault();
+                const query = $('#prompt').val();
+                addUserMessage(query);
+                await fetchAIResponse(query);
+            });
 
-    // Three.js animation
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+            function addUserMessage(msg) {
+                const template = '<div class="chat-box mb-2 ms-2"><span class="badge badge-success float-start me-2">You:</span><span class="fs-5">' + msg + '</span></div>';
+                $('.chat-output').append(template);
+                scrollToBottom();
+            }
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xff4500 }); // Orange color
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+            async function fetchAIResponse(query) {
+                try {
+                    const result = await $.ajax({
+                        url: `https://api.deepseek.com/v1/chat/completions`,
+                        method: "POST",
+                        beforeSend: xhr => {
+                            xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                        },
+                        data: JSON.stringify({ model: "deepseek-coder", messages: [...messages, { role: "user", content: query }] }),
+                    });
 
-    camera.position.z = 5;
+                    handleServerResponse(result);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
 
-    function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-    }
+            function handleServerResponse(res) {
+                if ('choices' in res && Array.isArray(res.choices)) {
+                    const choice = res.choices[0];
+                    const aiMessage = choice.message;
+                    if (aiMessage) {
+                        const template = '<div class="chat-box mb-2 bg-light"><span class="badge badge-info float-start me-2">AI:</span><span class="fs-5">' + aiMessage.content + '</span></div>';
+                        $('.chat-output').append(template);
+                        scrollToBottom();
+                        messages.push(aiMessage);
 
-    animate();
-</script>
+                        // Update System Prompt
+                        if (aiMessage.content.toLowerCase().includes("help with a code")) {
+                            messages[0].content = "You are a helpful assistant specializing in coding.";
+                        }
+                    }
+                } else {
+                    console.log("Invalid or no response received.", res);
+                }
+            }
 
+            function scrollToBottom() {
+                $('.chat-output').animate({ scrollTop: $('.chat-output').prop("scrollHeight") }, 500);
+            }
+        });
+    </script>
 </body>
+
 </html>
