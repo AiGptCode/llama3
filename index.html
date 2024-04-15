@@ -1,359 +1,125 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tetris Sudoku Puzzle Game</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<title>Blackjack</title>
 	<style>
-		body {
-			background-color: #f2f2f2;
-		}
-		header {
-			background-color: #333;
-			color: #fff;
-			padding: 10px;
-		}
-		header a {
-			color: #fff;
-			font-weight: bold;
-		}
-		main {
-			margin-top: 20px;
-			margin-bottom: 20px;
-		}
-		.container {
-			background-color: #fff;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0px 0px 10px #ccc;
-		}
-		h2 {
-			margin-top: 0;
-			margin-bottom: 20px;
-		}
-		#tetris-board {
-			width: 200px;
-			height: 400px;
-			background-color: #eee;
-			float: left;
-			margin-right: 20px;
-		}
-		#tetris-next {
-			width: 100px;
-			height: 100px;
-			background-color: #eee;
-			float: left;
-			margin-right: 20px;
-		}
-		#sudoku-board {
-			width: 300px;
-			height: 300px;
-			background-color: #eee;
-			float: left;
-		}
-		.scorecard {
-			margin-top: 20px;
-			padding: 10px;
-			background-color: #333;
-			color: #fff;
-			border-radius: 10px;
-		}
-		.scorecard p {
-			margin: 0;
-			margin-bottom: 10px;
-		}
-		.scorecard span {
-			font-weight: bold;
-		}
-		footer {
-			background-color: #333;
-			color: #fff;
-			padding: 10px;
-			text-align: center;
-			font-size: 12px;
-			position: fixed;
-			bottom: 0;
-			width: 100%;
-		}
+		/* Add some basic styling */
+		body { font-family: Arial, sans-serif; }
+		h1 { text-align: center; }
+		.card { width: 100px; height: 140px; background-size: contain; }
+		.deck { display: flex; flex-wrap: wrap; justify-content: center; }
+		.hand { display: flex; flex-direction: row; }
+		.buttons { display: flex; justify-content: center; }
+		button { margin: 10px; padding: 10px; font-size: 20px; }
 	</style>
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-			<a class="navbar-brand" href="#">Tetris Sudoku Puzzle Game</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="#">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">About</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-	<main>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<h2>Tetris Block Section</h2>
-					<div id="tetris-board"></div>
-					<div id="tetris-next"></div>
-				</div>
-				<div class="col-md-6">
-					<h2>Sudoku Puzzle Section</h2>
-					<div id="sudoku-board"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="scorecard">
-						<p>Current Score: <span id="score">0</span></p>
-						<p>Blocks Cleared: <span id="blocks-cleared">0</span></p>
-						<p>Puzzles Solved: <span id="puzzles-solved">0</span></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
-	<footer>
-		<div class="container">
-			<p>&copy; 2021 Tetris Sudoku Puzzle Game. All rights reserved.</p>
-		</div>
-	</footer>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<h1>Blackjack</h1>
+	<div class="deck"></div>
+	<div class="hand player-hand"></div>
+	<div class="hand dealer-hand"></div>
+	<div class="buttons">
+		<button onclick="hit()">Hit</button>
+		<button onclick="stand()">Stand</button>
+	</div>
 	<script>
-		// Tetris game code
-		var tetrisBoard = $('#tetris-board');
-		var tetrisNext = $('#tetris-next');
-		var score = $('#score');
-		var blocksCleared = $('#blocks-cleared');
-		var puzzlesSolved = $('#puzzles-solved');
-		var tetris = new Tetris(tetrisBoard, tetrisNext, score, blocksCleared);
-		tetris.start();
+		// Define some variables
+		const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+		let deck = [];
+		let playerHand = [];
+		let dealerHand = [];
 
-		// Sudoku game code
-		var sudokuBoard = $('#sudoku-board');
-		var sudoku = new Sudoku(sudokuBoard, puzzlesSolved);
-		sudoku.start();
-	</script>
-	<script>
-		// Tetris game code
-		var Tetris = function(board, next, score, blocksCleared) {
-			var self = this;
-			var rows = 20;
-			var cols = 10;
-			var blockWidth = 20;
-			var blockHeight = 20;
-			var boardWidth = cols * blockWidth;
-			var boardHeight = rows * blockHeight;
-			var board = board;
-			var next = next;
-			var score = score;
-			var blocksCleared = blocksCleared;
-var blockColors = [
-				'#FF0000',
-				'#00FF00',
-				'#0000FF',
-				'#FFFF00',
-				'#00FFFF',
-				'#FF00FF',
-				'#C0C0C0'
-			];
-			var blocks = [
-				// I block
-				[
-					[1, 1, 1, 1]
-				],
-				// J block
-				[
-					[1, 0, 0],
-					[1, 1, 1]
-				],
-				// L block
-				[
-					[0, 0, 1],
-					[1, 1, 1]
-				],
-				// O block
-				[
-					[1, 1],
-					[1, 1]
-				],
-				// S block
-				[
-					[0, 1, 1],
-					[1, 1, 0]
-				],
-				// T block
-				[
-					[0, 1, 0],
-					[1, 1, 1]
-				],
-				// Z block
-				[
-					[1, 1, 0],
-					[0, 1, 1]
-				]
-			];
-			var currentBlock = null;
-			var nextBlock = null;
-			var currentBlockX = 0;
-			var currentBlockY = 0;
-			var currentBlockRotation = 0;
-			var currentBlockColor = null;
-			var boardData = [];
-			var intervalId = null;
-			var isGameOver = false;
-			var isPaused = false;
-			var scoreValue = 0;
-			var blocksClearedValue = 0;
-
-			// Initialize the game board
-			var initBoard = function() {
-				for (var i = 0; i < rows; i++) {
-					boardData[i] = [];
-					for (var j = 0; j < cols; j++) {
-						boardData[i][j] = null;
-					}
+		// Initialize the deck
+		function initDeck() {
+			deck = [];
+			for (let suit of suits) {
+				for (let value of values) {
+					deck.push(`cards/${suit}_${value}.png`);
 				}
-			};
+			}
+			shuffle(deck);
+		}
 
-			// Draw the game board
-			var drawBoard = function() {
-				var html = '';
-				for (var i = 0; i < rows; i++) {
-					for (var j = 0; j < cols; j++) {
-						if (boardData[i][j] !== null) {
-							html += '<div class="block" style="background-color: ' + boardData[i][j] + ';"></div>';
-						} else {
-							html += '<div class="block"></div>';
-						}
-					}
-				}
-				board.html(html);
-			};
+		// Shuffle the deck
+		function shuffle(array) {
+			for (let i = array.length - 1; i > 0; i--) {
+				let j = Math.floor(Math.random() * (i + 1));
+				[array[i], array[j]] = [array[j], array[i]];
+			}
+		}
 
-			// Draw the next block
-			var drawNext = function() {
-				var html = '';
-				for (var i = 0; i < nextBlock.length; i++) {
-					for (var j = 0; j < nextBlock[i].length; j++) {
-						if (nextBlock[i][j] === 1) {
-							html += '<div class="block" style="background-color: ' + currentBlockColor + ';"></div>';
-						} else {
+		// Deal a card to a hand
+		function dealCard(hand) {
+			let card = deck.pop();
+			hand.push(card);
+			let img = document.createElement('img');
+			img.src = card;
+			img.className = 'card';
+			let handElement = document.querySelector(`.${hand}`);
+			handElement.appendChild(img);
+		}
 
-addBlockToBoard();
-					removeCompleteLines();
-					currentBlock = nextBlock.block;
-					currentBlockColor = nextBlock.color;
-					nextBlock = generateBlock();
-					currentBlockX = Math.floor(cols / 2) - Math.floor(currentBlock[0].length / 2);
-					currentBlockY = 0;
-					currentBlockRotation = 0;
-					if (checkCollision(currentBlockX, currentBlockY, currentBlockRotation)) {
-						isGameOver = true;
-						clearInterval(intervalId);
-						alert('Game Over!');
+		// Calculate the score of a hand
+		function calculateScore(hand) {
+			let score = 0;
+			let aces = 0;
+			for (let card of hand) {
+				let value = parseInt(card.charAt(card.length-2));
+				if (isNaN(value)) {
+					if (card.charAt(card.length-2) === 'A') {
+						value = 11;
+						aces++;
 					} else {
-						drawCurrentBlock();
-						drawNext();
+						value = 10;
 					}
 				}
-			};
+				score += value;
+			}
+			while (score > 21 && aces > 0) {
+				score -= 10;
+				aces--;
+			}
+			return score;
+		}
 
-			// Move the current block left
-			var moveLeft = function() {
-				if (!checkCollision(currentBlockX - 1, currentBlockY, currentBlockRotation)) {
-					currentBlockX--;
-					drawCurrentBlock();
-				}
-			};
-
-			// Move the current block right
-			var moveRight = function() {
-				if (!checkCollision(currentBlockX + 1, currentBlockY, currentBlockRotation)) {
-					currentBlockX++;
-					drawCurrentBlock();
-				}
-			};
-
-			// Rotate the current block
-			var rotate = function() {
-				var newRotation = (currentBlockRotation + 1) % currentBlock.length;
-				var kick = 0;
-				if (checkCollision
-
-(currentBlockX, currentBlockY, newRotation)) {
-					if (currentBlockX < cols / 2) {
-						kick = 1;
-					} else {
-						kick = -1;
-					}
-				}
-				if (!checkCollision(currentBlockX + kick, currentBlockY, newRotation)) {
-					currentBlockRotation = newRotation;
-					currentBlockX += kick;
-					drawCurrentBlock();
-				}
-			};
-
-			// Start the game
-			var startGame = function() {
-				initBoard();
-				currentBlock = generateBlock().block;
-				currentBlockColor = generateBlock().color;
-				nextBlock = generateBlock();
-				currentBlockX = Math.floor(cols / 2) - Math.floor(currentBlock[0].length / 2);
-				currentBlockY = 0;
-				currentBlockRotation = 0;
-				drawCurrentBlock();
-				drawNext();
-				intervalId = setInterval(moveDown, 500);
-			};
-
-			// Pause the game
-			var pauseGame = function() {
-				if (!isPaused) {
-					isPaused = true;
-					clearInterval(intervalId);
-					alert('Game Paused');
-				} else {
-					isPaused = false;
-					intervalId = setInterval(moveDown, 500);
-				}
-			};
-
-			// Handle keyboard input
-			$(document).keydown(function(e) {
-				switch (e.which) {
-					case 37: // left arrow
-						moveLeft();
-						break;
-					case 38: // up arrow
-						rotate();
-						break;
-					case 39: // right arrow
-						moveRight();
-						break;
-					case 40: // down arrow
-						moveDown();
-						break;
-					case 32: // spacebar
-						pauseGame();
-						break;
-				}
-			});
-
-			// Start the game when the page loads
+		// Start a new game
+		function startGame() {
+			initDeck();
+			playerHand = [];
+			dealerHand = [];
+			dealCard(playerHand);
+			dealCard(dealerHand);
+			dealCard(playerHand);
+			dealCard(dealerHand);
+		}
+		// Hit button
+		function hit() {
+			dealCard(playerHand);
+			if (calculateScore(playerHand) > 21) {
+				alert('Bust! You lose.');
+				startGame();
+			}
+		}
+		// Stand button
+		function stand() {
+			while (calculateScore(dealerHand) < 17) {
+				dealCard(dealerHand);
+			}
+			let playerScore = calculateScore(playerHand);
+			let dealerScore = calculateScore(dealerHand);
+			if (dealerScore > 21 || playerScore > dealerScore) {
+				alert('You win!');
+			} else if (dealerScore === playerScore) {
+				alert('Tie!');
+			} else {
+				alert('You lose.');
+			}
 			startGame();
+		}
+
+		// Start the game when the page loads
+		startGame();
+	</script>
+</body>
+</html>
