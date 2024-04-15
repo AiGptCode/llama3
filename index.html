@@ -1,125 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Blackjack</title>
-	<style>
-		/* Add some basic styling */
-		body { font-family: Arial, sans-serif; }
-		h1 { text-align: center; }
-		.card { width: 100px; height: 140px; background-size: contain; }
-		.deck { display: flex; flex-wrap: wrap; justify-content: center; }
-		.hand { display: flex; flex-direction: row; }
-		.buttons { display: flex; justify-content: center; }
-		button { margin: 10px; padding: 10px; font-size: 20px; }
-	</style>
+  <title>CryptoHub - Your One-Stop Shop for Crypto Resources</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	<h1>Blackjack</h1>
-	<div class="deck"></div>
-	<div class="hand player-hand"></div>
-	<div class="hand dealer-hand"></div>
-	<div class="buttons">
-		<button onclick="hit()">Hit</button>
-		<button onclick="stand()">Stand</button>
-	</div>
-	<script>
-		// Define some variables
-		const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-		const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-		let deck = [];
-		let playerHand = [];
-		let dealerHand = [];
-
-		// Initialize the deck
-		function initDeck() {
-			deck = [];
-			for (let suit of suits) {
-				for (let value of values) {
-					deck.push(`cards/${suit}_${value}.png`);
-				}
-			}
-			shuffle(deck);
-		}
-
-		// Shuffle the deck
-		function shuffle(array) {
-			for (let i = array.length - 1; i > 0; i--) {
-				let j = Math.floor(Math.random() * (i + 1));
-				[array[i], array[j]] = [array[j], array[i]];
-			}
-		}
-
-		// Deal a card to a hand
-		function dealCard(hand) {
-			let card = deck.pop();
-			hand.push(card);
-			let img = document.createElement('img');
-			img.src = card;
-			img.className = 'card';
-			let handElement = document.querySelector(`.${hand}`);
-			handElement.appendChild(img);
-		}
-
-		// Calculate the score of a hand
-		function calculateScore(hand) {
-			let score = 0;
-			let aces = 0;
-			for (let card of hand) {
-				let value = parseInt(card.charAt(card.length-2));
-				if (isNaN(value)) {
-					if (card.charAt(card.length-2) === 'A') {
-						value = 11;
-						aces++;
-					} else {
-						value = 10;
-					}
-				}
-				score += value;
-			}
-			while (score > 21 && aces > 0) {
-				score -= 10;
-				aces--;
-			}
-			return score;
-		}
-
-		// Start a new game
-		function startGame() {
-			initDeck();
-			playerHand = [];
-			dealerHand = [];
-			dealCard(playerHand);
-			dealCard(dealerHand);
-			dealCard(playerHand);
-			dealCard(dealerHand);
-		}
-		// Hit button
-		function hit() {
-			dealCard(playerHand);
-			if (calculateScore(playerHand) > 21) {
-				alert('Bust! You lose.');
-				startGame();
-			}
-		}
-		// Stand button
-		function stand() {
-			while (calculateScore(dealerHand) < 17) {
-				dealCard(dealerHand);
-			}
-			let playerScore = calculateScore(playerHand);
-			let dealerScore = calculateScore(dealerHand);
-			if (dealerScore > 21 || playerScore > dealerScore) {
-				alert('You win!');
-			} else if (dealerScore === playerScore) {
-				alert('Tie!');
-			} else {
-				alert('You lose.');
-			}
-			startGame();
-		}
-
-		// Start the game when the page loads
-		startGame();
-	</script>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#education">Crypto Education</a></li>
+        <li><a href="#news">Crypto News</a></li>
+        <li><a href="#tools">Crypto Tools</a></li>
+        <li><a href="#communities">Crypto Communities</a></li>
+      </ul>
+    </nav>
+    <h1>CryptoHub - Your One-Stop Shop for Crypto Resources</h1>
+  </header>
+  <main>
+    <section id="education">
+      <h2>Crypto Education</h2>
+      <p>Learn about the basics of cryptocurrency and blockchain technology from free resources:</p>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Resource 1</h3>
+          <p>Learn about Bitcoin and its history from this free online course.</p>
+          <a href="https://www.coursera.org/learn/bitcoin-cryptocurrency">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 2</h3>
+          <p>Understand the basics of blockchain technology from this free online tutorial.</p>
+          <a href="https://www.codecademy.com/learn/learn-blockchain">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 3</h3>
+          <p>Explore the world of Ethereum and smart contracts with this free online course.</p>
+          <a href="https://www.edx.org/course/ethereum-and-solidity-the-complete-developers-guide-2">Learn More</a>
+        </div>
+      </div>
+    </section>
+    <section id="news">
+      <h2>Crypto News</h2>
+      <p>Stay up-to-date with the latest news and trends in the crypto world from these free resources:</p>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Resource 1</h3>
+          <p>Get the latest crypto news and analysis from CoinDesk.</p>
+          <a href="https://www.coindesk.com/">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 2</h3>
+          <p>Follow the crypto market in real-time with CoinMarketCap.</p>
+          <a href="https://coinmarketcap.com/">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 3</h3>
+          <p>Stay informed with the latest crypto regulations and policies from CoinCenter.</p>
+          <a href="https://coincenter.org/">Learn More</a>
+        </div>
+      </div>
+    </section>
+    <section id="tools">
+      <h2>Crypto Tools</h2>
+      <p>Use these free crypto tools to help you make informed decisions:</p>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Resource 1</h3>
+          <p>Use our crypto calculator to easily convert between different cryptocurrencies.</p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 2</h3>
+          <p>Track your crypto portfolio and prices with Blockfolio.</p>
+          <a href="https://blockfolio.com/">Learn More</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 3</h3>
+          <p>Analyze crypto market trends and data with CryptoCompare.</p>
+          <a href="https://www.cryptocompare.com/">Learn More</a>
+        </div>
+      </div>
+    </section>
+    <section id="communities">
+      <h2>Crypto Communities</h2>
+      <p>Join these crypto communities to connect with other enthusiasts and experts:</p>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <h3>Resource 1</h3>
+          <p>Join our Discord server to connect with other crypto enthusiasts.</p>
+          <a href="#">Join Now</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 2</h3>
+          <p>Follow us on Twitter for the latest updates and announcements.</p>
+          <a href="#">Follow Us</a>
+        </div>
+        <div class="resource-card">
+          <h3>Resource 3</h3>
+          <p>Subscribe to our newsletter to get exclusive crypto insights and tips.</p>
+          <a href="#">Subscribe Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Copyright © 2023 CryptoHub. All rights reserved.</p>
+  </footer>
 </body>
 </html>
