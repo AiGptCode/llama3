@@ -4,12 +4,12 @@
 <dict>
     <key>PayloadContent</key>
     <array>
-        <!-- Cellular settings for both SIM cards -->
+        <!-- Cellular settings for first SIM card -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>Cellular</string>
+            <string>Cellular - SIM 1</string>
             <key>PayloadIdentifier</key>
-            <string>com.apple.cellular</string>
+            <string>com.apple.cellular.sim1</string>
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
@@ -26,6 +26,28 @@
                     <key>Name</key>
                     <string>mcinet</string>
                 </dict>
+            </array>
+            <key>SignalBoostEnabled</key>
+            <true/>
+            <key>SIMCardSelection</key>
+            <array>
+                <string>1</string>
+            </array>
+        </dict>
+        <!-- Cellular settings for second SIM card -->
+        <dict>
+            <key>PayloadDisplayName</key>
+            <string>Cellular - SIM 2</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.cellular.sim2</string>
+            <key>PayloadType</key>
+            <string>com.apple.cellular</string>
+            <key>PayloadUUID</key>
+            <string>3F8E4F0D-4B77-4576-9831-A9C86219E684</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>APNs</key>
+            <array>
                 <dict>
                     <key>AuthenticationType</key>
                     <string>PAP</string>
@@ -43,7 +65,6 @@
             <true/>
             <key>SIMCardSelection</key>
             <array>
-                <string>1</string>
                 <string>2</string>
             </array>
         </dict>
