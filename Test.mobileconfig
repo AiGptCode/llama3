@@ -108,5 +108,19 @@
             </array>
         </dict>
     </array>
+    <key>PayloadDisplayName</key>
+    <string>Cellular and DNS Settings</string>
+    <key>PayloadIdentifier</key>
+    <string>com.example.cellulardns</string>
+    <key>PayloadOrganization</key>
+    <string>Example Inc.</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>A03D655B-7D6D-495A-9109-8D669E434681</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
 </plist>
