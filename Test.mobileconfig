@@ -86,35 +86,4 @@
             <key>SignalBoostEnabled</key>
             <true/>
         </dict>
-        <!-- DNS settings -->
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>DNS Settings</string>
-            <key>PayloadIdentifier</key>
-            <string>com.example.dns</string>
-            <key>PayloadType</key>
-            <string>com.apple.dns</string>
-            <key>PayloadUUID</key>
-            <string>76298E79-A667-453F-AE2D-588A0955F86B</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>DNSConfigurations</key>
-            <array>
-                <dict>
-                    <key>Name</key>
-                    <string>DNS Configuration</string>
-                    <key>SearchDomains</key>
-                    <array>
-                        <string>example.com</string>
-                    </array>
-                    <key>Servers</key>
-                    <array>
-                        <string>8.8.8.8</string>
-                        <string>8.8.4.4</string>
-                    </array>
-                </dict>
-            </array>
-        </dict>
-    </array>
-</dict>
 </plist>
