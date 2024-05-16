@@ -4,12 +4,12 @@
 <dict>
     <key>PayloadContent</key>
     <array>
-        <!-- First SIM card -->
+        <!-- Cellular settings for both SIM cards -->
         <dict>
             <key>PayloadDisplayName</key>
-            <string>Cellular - SIM 1</string>
+            <string>Cellular</string>
             <key>PayloadIdentifier</key>
-            <string>com.apple.cellular.sim1</string>
+            <string>com.apple.cellular</string>
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
@@ -41,44 +41,11 @@
             </array>
             <key>SignalBoostEnabled</key>
             <true/>
-        </dict>
-        <!-- Second SIM card -->
-        <dict>
-            <key>PayloadDisplayName</key>
-            <string>Cellular - SIM 2</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.cellular.sim2</string>
-            <key>PayloadType</key>
-            <string>com.apple.cellular</string>
-            <key>PayloadUUID</key>
-            <string>3F8E4F0D-4B77-4576-9831-A9C86219E684</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>APNs</key>
+            <key>SIMCardSelection</key>
             <array>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>CHAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>Name</key>
-                    <string>mcinet</string>
-                </dict>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>PAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>Name</key>
-                    <string>mtnirancell</string>
-                    <key>ProxyServer</key>
-                    <string>11.131.26.138</string>
-                    <key>ProxyPort</key>
-                    <integer>8181</integer>
-                </dict>
+                <string>1</string>
+                <string>2</string>
             </array>
-            <key>SignalBoostEnabled</key>
-            <true/>
         </dict>
         <!-- DNS settings -->
         <dict>
