@@ -4,16 +4,15 @@
 <dict>
     <key>PayloadContent</key>
     <array>
-        <!-- Cellular settings for both SIM cards -->
         <dict>
-            <key>ham</key>
+            <key>PayloadDisplayName</key>
             <string>Cellular</string>
             <key>PayloadIdentifier</key>
             <string>com.apple.cellular</string>
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
-            <string>9F4D7923-1A8A-4103-9708-932C03B3A349</string>
+            <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0123</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>APNs</key>
@@ -25,65 +24,122 @@
                     <true/>
                     <key>Name</key>
                     <string>mcinet</string>
-                    <key>SIMCardSelection</key>
-                    <array>
-                        <string>1</string>
-                    </array>
-                </dict>
-                <dict>
-                    <key>AuthenticationType</key>
-                    <string>PAP</string>
-                    <key>Enabled</key>
-                    <true/>
-                    <key>ira</key>
-                    <string>mtnirancell</string>
-                    <key>ProxyServer</key>
-                    <string>11.131.26.138</string>
-                    <key>ProxyPort</key>
-                    <integer>8181</integer>
-                    <key>SIMCardSelection</key>
-                    <array>
-                        <string>2</string>
-                    </array>
                 </dict>
             </array>
             <key>SignalBoostEnabled</key>
             <true/>
-        </dict>
-        <!-- DNS settings -->
-        <dict>
-            <key>boost</key>
-            <string>DNS Settings</string>
-            <key>PayloadIdentifier</key>
-            <string>com.example.dns</string>
-            <key>PayloadType</key>
-            <string>com.apple.dns</string>
-            <key>PayloadUUID</key>
-            <string>76298E79-A667-453F-AE2D-588A0955F86B</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-            <key>DNSConfigurations</key>
-            <array>
-                <dict>
-                    <key>dnns</key>
-                    <string>DNS Configuration</string>
-                    <key>SearchDomains</key>
-                    <array>
-                        <string>example.com</string>
-                    </array>
-                    <key>Servers</key>
-                    <array>
-                        <string>8.8.8.8</string>
-                        <string>8.8.1.1</string>
-                    </array>
-                </dict>
-            </array>
+            <key>VPN</key>
+            <dict>
+                <key>Enabled</key>
+                <true/>
+                <key>PayloadType</key>
+                <string>com.apple.vpn</string>
+                <key>PayloadUUID</key>
+                <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0124</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>OnDemandEnabled</key>
+                <true/>
+                <key>PayloadContent</key>
+                <array>
+                    <dict>
+                        <key>PayloadDisplayName</key>
+                        <string>VPN Configuration</string>
+                        <key>PayloadIdentifier</key>
+                        <string>com.apple.vpn.managed</string>
+                        <key>PayloadType</key>
+                        <string>com.apple.vpn.managed</string>
+                        <key>PayloadUUID</key>
+                        <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0125</string>
+                        <key>PayloadVersion</key>
+                        <integer>1</integer>
+                        <key>AuthenticationMethod</key>
+                        <string>Certificate</string>
+                        <key>DisconnectOnLogout</key>
+                        <true/>
+                        <key>DisconnectOnSleep</key>
+                        <true/>
+                        <key>SendAllTraffic</key>
+                        <true/>
+                        <key>ServerAddress</key>
+                        <string>vpn.example.com</string>
+                        <key>ServerPort</key>
+                        <integer>1723</integer>
+                        <key>Protocol</key>
+                        <string>L2TP</string>
+                        <key>SharedSecret</key>
+                        <string>YourSharedSecret</string>
+                        <key>Username</key>
+                        <string>YourUsername</string>
+                    </dict>
+                </array>
+            </dict>
+            <key>Proxy</key>
+            <dict>
+                <key>Enabled</key>
+                <true/>
+                <key>PayloadType</key>
+                <string>com.apple.proxy</string>
+                <key>PayloadUUID</key>
+                <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0126</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>HTTPEnable</key>
+                <true/>
+                <key>HTTPPort</key>
+                <integer>8080</integer>
+                <key>HTTPSEnable</key>
+                <true/>
+                <key>HTTPSPort</key>
+                <integer>8080</integer>
+                <key>FTPEnable</key>
+                <true/>
+                <key>FTPPort</key>
+                <integer>21</integer>
+                <key>SOCKSEnable</key>
+                <true/>
+                <key>SOCKSPort</key>
+                <integer>1080</integer>
+                <key>Server</key>
+                <string>proxy.example.com</string>
+                <key>ExclusionList</key>
+                <array>
+                    <string>localhost</string>
+                    <string>127.0.0.1</string>
+                    <string>169.254.0.0/16</string>
+                </array>
+            </dict>
+            <key>Firewall</key>
+            <dict>
+                <key>Enabled</key>
+                <true/>
+                <key>PayloadType</key>
+                <string>com.apple.firewall</string>
+                <key>PayloadUUID</key>
+                <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0127</string>
+                <key>PayloadVersion</key>
+                <integer>1</integer>
+                <key>AllowedApplications</key>
+                <array>
+                    <string>com.apple.Safari</string>
+                    <string>com.apple.Mail</string>
+                    <string>com.apple.Messages</string>
+                    <string>com.apple.iChat</string>
+                </array>
+                <key>AllowedServices</key>
+                <array>
+                    <string>com.apple.netbios</string>
+                    <string>com.apple.ssh</string>
+                </array>
+                <key>StealthMode</key>
+                <true/>
+            </dict>
         </dict>
     </array>
-    <key>fi</key>
-    <string>Cellular and DNS Settings</string>
+    <key>PayloadDisplayName</key>
+    <string>Cellular and Network Settings</string>
     <key>PayloadIdentifier</key>
-    <string>com.example.cellulardns</string>
+    <string>com.example.cellular</string>
     <key>PayloadOrganization</key>
     <string>Example Inc.</string>
     <key>PayloadRemovalDisallowed</key>
@@ -91,14 +147,8 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>A03D655B-7D6D-495A-9109-8D669E434681</string>
+    <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0128</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
-    <key>SigningDate</key>
-    <date>2023-03-01T00:00:00Z</date>
-    <key>Signature</key>
-    <data>
-    <!-- Base64-encoded signature goes here -->
-    </data>
 </dict>
 </plist>
