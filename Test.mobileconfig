@@ -94,5 +94,11 @@
     <string>A03D655B-7D6D-495A-9109-8D669E434681</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
+    <key>SigningDate</key>
+    <date>2023-03-01T00:00:00Z</date>
+    <key>Signature</key>
+    <data>
+    <!-- Base64-encoded signature goes here -->
+    </data>
 </dict>
 </plist>
