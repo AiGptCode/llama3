@@ -23,31 +23,18 @@
                     <key>Enabled</key>
                     <true/>
                     <key>Name</key>
-                    <string>mtnirancell</string>
+                    <string>mcinet</string>
                 </dict>
             </array>
+            <!-- DNS settings added here -->
+            <key>DNS</key>
+            <array>
+                <string>8.8.8.8</string>
+                <string>8.8.4.4</string>
+            </array>
+            <!-- End of DNS settings -->
             <key>SignalBoostEnabled</key>
             <true/>
-            <key>VPN</key>
-            <dict>
-                <key>Enabled</key>
-                <true/>
-                <key>PayloadType</key>
-                <string>com.apple.vpn</string>
-                <key>PayloadUUID</key>
-                <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0124</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-                <key>OnDemandEnabled</key>
-                <true/>
-                <key>PayloadContent</key>
-                <array>
-                    <dict>
-                        <key>PayloadDisplayName</key>
-                        <string>VPN Configuration</string>
-                    </dict>
-                </array>
-            </dict>
             <key>Proxy</key>
             <dict>
                 <key>Enabled</key>
@@ -85,5 +72,19 @@
             </dict>
         </dict>
     </array>
+    <key>PayloadDisplayName</key>
+    <string>Cellular and Network Settings</string>
+    <key>PayloadIdentifier</key>
+    <string>com.example.cellular</string>
+    <key>PayloadOrganization</key>
+    <string>Example Inc.</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0128</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
 </plist>
