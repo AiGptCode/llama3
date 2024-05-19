@@ -12,7 +12,7 @@
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
-            <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0123</string>
+            <string>21f13766-23de-4dd1-b4d7-ddda57c2dff0</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>APNs</key>
@@ -26,13 +26,6 @@
                     <string>mcinet</string>
                 </dict>
             </array>
-            <!-- DNS settings added here -->
-            <key>DNS</key>
-            <array>
-                <string>8.8.8.8</string>
-                <string>8.8.4.4</string>
-            </array>
-            <!-- End of DNS settings -->
             <key>SignalBoostEnabled</key>
             <true/>
             <key>Proxy</key>
@@ -42,7 +35,7 @@
                 <key>PayloadType</key>
                 <string>com.apple.proxy</string>
                 <key>PayloadUUID</key>
-                <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0126</string>
+                <string>9b45424a-5bb5-45e3-9fc9-c9e24c401f2d</string>
                 <key>PayloadVersion</key>
                 <integer>1</integer>
                 <key>HTTPEnable</key>
@@ -83,7 +76,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>A1B2C3D4-E5F6-1234-5678-90ABCDEF0128</string>
+    <string>0f611001-0d75-427b-bc4b-45ef7e304a4d</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
