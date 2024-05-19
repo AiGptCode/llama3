@@ -12,7 +12,7 @@
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
-            <string>5b96d23d-b2f6-440a-b700-0e75d65ca188</string>
+            <string>9092991f-4be6-444a-ade5-566312201140</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>APNs</key>
@@ -23,7 +23,7 @@
                     <key>Enabled</key>
                     <true/>
                     <key>Name</key>
-                    <string>rightel</string>
+                    <string>RighTel</string>
                 </dict>
             </array>
             <key>SignalBoostEnabled</key>
@@ -35,7 +35,7 @@
                 <key>PayloadType</key>
                 <string>com.apple.proxy</string>
                 <key>PayloadUUID</key>
-                <string>94a97257-4221-4831-930f-3417e5b8c62e</string>
+                <string>9b993ec6-11e5-44ff-b3fb-9f68e9896d14</string>
                 <key>PayloadVersion</key>
                 <integer>1</integer>
                 <key>HTTPEnable</key>
@@ -76,7 +76,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>99e4af3c-dfbe-450a-a7f9-da70c17828e7</string>
+    <string>0bed24fd-d122-48d6-a36b-9b4ad8e6bac8</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
