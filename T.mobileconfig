@@ -12,7 +12,7 @@
             <key>PayloadType</key>
             <string>com.apple.cellular</string>
             <key>PayloadUUID</key>
-            <string>21f13766-23de-4dd1-b4d7-ddda57c2dff0</string>
+            <string>5b96d23d-b2f6-440a-b700-0e75d65ca188</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>APNs</key>
@@ -23,7 +23,7 @@
                     <key>Enabled</key>
                     <true/>
                     <key>Name</key>
-                    <string>mcinet</string>
+                    <string>rightel</string>
                 </dict>
             </array>
             <key>SignalBoostEnabled</key>
@@ -35,7 +35,7 @@
                 <key>PayloadType</key>
                 <string>com.apple.proxy</string>
                 <key>PayloadUUID</key>
-                <string>9b45424a-5bb5-45e3-9fc9-c9e24c401f2d</string>
+                <string>94a97257-4221-4831-930f-3417e5b8c62e</string>
                 <key>PayloadVersion</key>
                 <integer>1</integer>
                 <key>HTTPEnable</key>
@@ -76,7 +76,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>0f611001-0d75-427b-bc4b-45ef7e304a4d</string>
+    <string>99e4af3c-dfbe-450a-a7f9-da70c17828e7</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
