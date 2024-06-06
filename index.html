@@ -1,70 +1,165 @@
 
-
-import requests
-import json
-from rich.console import Console
-from rich.prompt import Prompt
-from rich.markdown import Markdown
-
-console = Console()
-
-def get_assistant_response(messages):
-    url = "https://api.fireworks.ai/inference/v1/chat/completions"
-    payload = {
-        "model": "accounts/fireworks/models/llama-v3-70b-instruct",
-        "max_tokens": 8192,
-        "top_p": 1,
-        "top_k": 40,
-        "presence_penalty": 0,
-        "frequency_penalty": 0,
-        "temperature": 1,
-        "messages": messages
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Llama3 AI Assistant</title>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      background-color: #212121;
+      color: #fff;
     }
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": "Bearer QAwsdCAvRsIaGhoJQvXqfwNkwuDj7D1MyGqldWn07GV068cq"
+   .chat-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
+   .chat-header {
+      background-color: #444;
+      color: #fff;
+      padding: 10px;
+      border-bottom: 1px solid #444;
+    }
+   .chat-header h2 {
+      margin: 0;
+      font-weight: bold;
+    }
+   .chat-messages {
+      padding: 20px;
+    }
+   .message {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+   .message.assistant {
+      background-color: #43537E;
+      color: #fff;
+    }
+   .message.user {
+      background-color: #666;
+      color: #fff;
+    }
+   .message span {
+      font-weight: bold;
+      color: #fff;
+    }
+   .input-container {
+      padding: 20px;
+    }
+   .input-field {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #444;
+      color: #fff;
+    }
+   .input-field:focus {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+   .send-button {
+      background-color: #337ab7;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+   .send-button:hover {
+      background-color: #23527c;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>Llama3 AI Assistant</h2>
+    </div>
+    <div class="chat-messages">
+      <div class="message system">
+        <span>System:</span> You are a helpful assistant.
+      </div>
+    </div>
+    <div class="input-container">
+      <input id="user-input" type="text" class="input-field" placeholder="Type a message...">
+      <button id="send-button" class="send-button">Send</button>
+    </div>
 
-    response = requests.post(url, headers=headers, json=payload)
+    <script>
+      const chatMessages = document.querySelector('.chat-messages');
+      const userInput = document.querySelector('#user-input');
+      const sendButton = document.querySelector('#send-button');
 
-    if response.status_code == 200:
-        response_data = response.json()
-        if 'choices' in response_data and response_data['choices']:
-            assistant_response = response_data['choices'][0]['message']['content']
-            return assistant_response
-        else:
-            console.print("No valid response received from the API.", style="red")
-            return None
-    else:
-        console.print(f"Error: {response.status_code}", style="red")
-        console.print(response.text, style="red")
-        return None
+      let messages = [
+        { role: 'ystem', content: 'You are a helpful assistant.' }
+      ];
 
-def main():
-    console.print("Welcome to the DeepSeek AI Assistant!", style="bold blue")
-    console.print("Type 'quit' to end the conversation.", style="blue")
+      sendButton.addEventListener('click', async () => {
+        const userInputValue = userInput.value.trim();
+        if (userInputValue!== '') {
+          messages.push({ role: 'user', content: userInputValue });
+          userInput.value = '';
 
-    system_message = {"role": "system", "content": "You are a helpful assistant."}
-    messages = [system_message]
+          const assistantResponse = await getAssistantResponse(messages);
+          if (assistantResponse) {
+            messages.push({ role: 'assistant', content: assistantResponse });
+            renderChatMessages();
+          } else {
+            console.error('Failed to get a response from the assistant.');
+          }
+        }
+      });
 
-    while True:
-        user_input = Prompt.ask("You", default="", show_default=False)
-        if user_input.lower() == 'quit':
-            console.print("Conversation ended. Goodbye!", style="blue")
-            break
+      async function getAssistantResponse(messages) {
+        const url = 'https://api.fireworks.ai/inference/v1/chat/completions';
+        const payload = {
+          model: 'accounts/fireworks/models/llama-v3-70b-instruct',
+          max_tokens: 8192,
+          top_p: 1,
+          top_k: 40,
+          presence_penalty: 0,
+          frequency_penalty: 0,
+          temperature: 1,
+          messages
+        };
+        const headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer QAwsdCAvRsIaGhoJQvXqfwNkwuDj7D1MyGqldWn07GV068cq'
+        };
 
-        messages.append({"role": "user", "content": user_input})
+        try {
+          const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(payload) });
+          const responseData = await response.json();
+          if (responseData.choices && responseData.choices[0].message.content) {
+            return responseData.choices[0].message.content;
+          } else {
+            console.error('No valid response received from the API.');
+            return null;
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          return null;
+        }
+      }
 
-        assistant_response = get_assistant_response(messages)
-        if assistant_response:
-            console.print(f"Assistant: {assistant_response}", style="green")
-            if assistant_response.lower().startswith("do you need help with a code"):
-                system_message["content"] = "You are a helpful assistant specializing in coding."
-            messages.append({"role": "assistant", "content": assistant_response})
-        else:
-            console.print("Failed to get a response from the assistant.", style="red")
-            break
+      function renderChatMessages() {
+        chatMessages.innerHTML = '';
+        messages.forEach((message) => {
+          const messageElement = document.createElement('div');
+          messageElement.className = `message ${message.role}`;
+          messageElement.innerHTML = `<span>${message.role.charAt(0).toUpperCase() + message.role.slice(1)}:</span> ${message.content}`;
+          chatMessages.appendChild(messageElement);
+        });
+      }
 
-if __name__ == "__main__":
-    main()
+      renderChatMessages();
+    </script>
+  </div>
+</body>
+</html>
