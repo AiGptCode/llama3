@@ -1,39 +1,70 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>AIGPTCODE</title>
-  <link rel="stylesheet" href="./style.css">
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<main id="app">
-  <section class="ticket">
-    <header class="front">
-      <div class="holo"></div>
-      <img class="logo" src="https://res.cloudinary.com/dpphcu4gm/image/upload/v1712992262/full-logo_bdbltu.png" alt="" />
-      <aside class="divider"></aside>
-    </header>
-    <section class="back">
-      <div class="holo"></div>
-      <p id="id_number">NO 000369</p>
-      <div class="data">
-        <p class="name">Coding⚡</p>
-        <p class="githubid">@Aigptcode</p>
-        <p></p>
-      </div>
-      <aside class="divider">
-        <div>
-          <img src="https://res.cloudinary.com/dpphcu4gm/image/upload/v1712992245/logo_ycu0zf.svg" alt="" />
-          <h3>aigptcode@gmail.com</h2>
-        </div>
-      </aside>
-    </section>
-  </section>
-</main>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js'></script><script  src="./script.js"></script>
 
-</body>
-</html>
+import requests
+import json
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.markdown import Markdown
+
+console = Console()
+
+def get_assistant_response(messages):
+    url = "https://api.fireworks.ai/inference/v1/chat/completions"
+    payload = {
+        "model": "accounts/fireworks/models/llama-v3-70b-instruct",
+        "max_tokens": 8192,
+        "top_p": 1,
+        "top_k": 40,
+        "presence_penalty": 0,
+        "frequency_penalty": 0,
+        "temperature": 1,
+        "messages": messages
+    }
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer QAwsdCAvRsIaGhoJQvXqfwNkwuDj7D1MyGqldWn07GV068cq"
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+
+    if response.status_code == 200:
+        response_data = response.json()
+        if 'choices' in response_data and response_data['choices']:
+            assistant_response = response_data['choices'][0]['message']['content']
+            return assistant_response
+        else:
+            console.print("No valid response received from the API.", style="red")
+            return None
+    else:
+        console.print(f"Error: {response.status_code}", style="red")
+        console.print(response.text, style="red")
+        return None
+
+def main():
+    console.print("Welcome to the DeepSeek AI Assistant!", style="bold blue")
+    console.print("Type 'quit' to end the conversation.", style="blue")
+
+    system_message = {"role": "system", "content": "You are a helpful assistant."}
+    messages = [system_message]
+
+    while True:
+        user_input = Prompt.ask("You", default="", show_default=False)
+        if user_input.lower() == 'quit':
+            console.print("Conversation ended. Goodbye!", style="blue")
+            break
+
+        messages.append({"role": "user", "content": user_input})
+
+        assistant_response = get_assistant_response(messages)
+        if assistant_response:
+            console.print(f"Assistant: {assistant_response}", style="green")
+            if assistant_response.lower().startswith("do you need help with a code"):
+                system_message["content"] = "You are a helpful assistant specializing in coding."
+            messages.append({"role": "assistant", "content": assistant_response})
+        else:
+            console.print("Failed to get a response from the assistant.", style="red")
+            break
+
+if __name__ == "__main__":
+    main()
