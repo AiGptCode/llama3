@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Llama3 AI Assistant</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Llama3 AI Assistant</title>
+  <meta name="description" content="Llama3 AI Assistant - A conversational AI chatbot">
+  <meta name="keywords" content="AI, chatbot, conversational AI, Llama3">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/styles/default.min.css">
@@ -87,6 +89,22 @@
       font-family: Monaco, monospace;
       font-size: 14px;
     }
+   .custom-settings {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #444;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+   .custom-settings label {
+      font-weight: bold;
+      color: #fff;
+    }
+   .custom-settings input[type="checkbox"] {
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
@@ -103,6 +121,10 @@
       <input id="user-input" type="text" class="input-field" placeholder="Type a message...">
       <button id="send-button" class="send-button">Send</button>
     </div>
+    <div class="custom-settings">
+      <label><input type="checkbox" id="show-code-blocks"> Show code blocks</label>
+      <label><input type="checkbox" id="show-prompt"> Show prompt</label>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/highlight.min.js"></script>
@@ -110,6 +132,8 @@
       const chatMessages = document.querySelector('.chat-messages');
       const userInput = document.querySelector('#user-input');
       const sendButton = document.querySelector('#send-button');
+      const showCodeBlocks = document.querySelector('#show-code-blocks');
+      const showPrompt = document.querySelector('#show-prompt');
 
       let messages = [
         { role:'system', content: 'You are a helpful assistant.' }
@@ -181,6 +205,30 @@
         });
         hljs.highlightAll();
       }
+
+      showCodeBlocks.addEventListener('change', () => {
+        if (showCodeBlocks.checked) {
+          document.querySelectorAll('.code-block').forEach((codeBlock) => {
+            codeBlock.style.display = 'block';
+          });
+        } else {
+          document.querySelectorAll('.code-block').forEach((codeBlock) => {
+            codeBlock.style.display = 'none';
+          });
+        }
+      });
+
+      showPrompt.addEventListener('change', () => {
+        if (showPrompt.checked) {
+          document.querySelectorAll('.message.prompt').forEach((prompt) => {
+            prompt.style.display = 'block';
+          });
+        } else {
+          document.querySelectorAll('.message.prompt').forEach((prompt) => {
+            prompt.style.display = 'none';
+          });
+        }
+      });
 
       renderChatMessages();
     </script>
